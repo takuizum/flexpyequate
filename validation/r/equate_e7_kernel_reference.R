@@ -1,10 +1,10 @@
-# flexpyequate E7 reference values (packages/flexpyequate/docs/DESIGN.md §7, cases Q11-Q12):
+# flexpyequate E7 reference values (docs/DESIGN.md §7, cases Q11-Q12):
 # kernel equating with the logistic and the uniform kernel (Lee & von Davier, 2011) in every
 # design, and the bandwidth rules beyond the penalty (rule of thumb, double smoothing,
 # leave-one-out cross-validation) for the Gaussian kernel.
 # Run from the repository root:  Rscript validation/r/equate_e7_kernel_reference.R  (a few min)
 # Reads the data of the E3 and E6 reference files and writes
-# packages/flexpyequate/tests/reference/e7_kernels.json. CI does not run R.
+# tests/reference/e7_kernels.json. CI does not run R.
 #
 # References (see equate_e3_reference.R for the reasons):
 # - "kequate_book": kequate with probabilities, design matrices and sample sizes times 1e8
@@ -21,7 +21,7 @@ suppressMessages({
 
 strict <- glm.control(epsilon = 1e-13, maxit = 200)
 BIG <- 1e8
-reference_dir <- "packages/flexpyequate/tests/reference"
+reference_dir <- "tests/reference"
 e3 <- fromJSON(file.path(reference_dir, "e3_kernel.json"), simplifyDataFrame = FALSE)
 e6 <- fromJSON(file.path(reference_dir, "e6_kernel_designs.json"), simplifyDataFrame = FALSE)
 KERNELS <- c("logistic", "uniform")

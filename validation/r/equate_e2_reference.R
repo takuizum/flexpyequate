@@ -1,7 +1,7 @@
-# flexpyequate E2 reference values (packages/flexpyequate/docs/DESIGN.md §7, case Q3):
+# flexpyequate E2 reference values (docs/DESIGN.md §7, case Q3):
 # polynomial log-linear presmoothing of univariate and bivariate score distributions.
 # Run from the repository root:  Rscript validation/r/equate_e2_reference.R
-# Writes packages/flexpyequate/tests/reference/e2_presmoothing.json. CI does not run R.
+# Writes tests/reference/e2_presmoothing.json. CI does not run R.
 #
 # Two references:
 # - stats::glm(family = poisson) with a strict convergence tolerance (epsilon = 1e-13) on
@@ -110,7 +110,7 @@ out <- list(
   bivariate = list(name = "single_group", x_scores = xs, y_scores = ys,
                    joint_frequencies = joint, fits = bivariate_fits)
 )
-path <- "packages/flexpyequate/tests/reference/e2_presmoothing.json"
+path <- "tests/reference/e2_presmoothing.json"
 writeLines(toJSON(out, auto_unbox = TRUE, digits = NA, pretty = TRUE), path)
 cat("wrote", path, "\n")
 for (case in univariate) for (fit in case$fits) {

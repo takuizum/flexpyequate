@@ -1,7 +1,7 @@
-# flexpyequate E1 reference values (packages/flexpyequate/docs/DESIGN.md §7, cases Q1 and Q2):
+# flexpyequate E1 reference values (docs/DESIGN.md §7, cases Q1 and Q2):
 # mean, linear and equipercentile equating for the equivalent-groups and single-group designs.
 # Run from the repository root:  Rscript validation/r/equate_e1_reference.R
-# Writes packages/flexpyequate/tests/reference/e1_equate.json. CI does not run R; the JSON is
+# Writes tests/reference/e1_equate.json. CI does not run R; the JSON is
 # committed.
 #
 # Two references:
@@ -155,7 +155,7 @@ out <- list(
   ),
   cases = cases
 )
-path <- "packages/flexpyequate/tests/reference/e1_equate.json"
+path <- "tests/reference/e1_equate.json"
 writeLines(toJSON(out, auto_unbox = TRUE, digits = NA, pretty = TRUE), path)
 cat("wrote", path, "\n")
 for (case in cases) {

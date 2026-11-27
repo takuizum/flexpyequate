@@ -1,9 +1,9 @@
-# flexpyequate E7 reference values (packages/flexpyequate/docs/DESIGN.md §7, cases Q9-Q10):
+# flexpyequate E7 reference values (docs/DESIGN.md §7, cases Q9-Q10):
 # standard errors of the traditional equating methods.
 # Run from the repository root:  Rscript validation/r/equate_e7_standard_errors_reference.R
 # (about ten minutes, almost all of it equate::bootstrap)
 # Reads the data of the E1 and E4 reference files and writes
-# packages/flexpyequate/tests/reference/e7_standard_errors.json. CI does not run R.
+# tests/reference/e7_standard_errors.json. CI does not run R.
 #
 # References:
 # - "equate": the analytic standard errors of R `equate` (Albano, 2016): linear and
@@ -23,7 +23,7 @@ suppressMessages({
   library(jsonlite)
 })
 
-reference_dir <- "packages/flexpyequate/tests/reference"
+reference_dir <- "tests/reference"
 e1 <- fromJSON(file.path(reference_dir, "e1_equate.json"), simplifyDataFrame = FALSE)
 e4 <- fromJSON(file.path(reference_dir, "e4_neat_linear.json"), simplifyDataFrame = FALSE)
 SCALE <- 1e6

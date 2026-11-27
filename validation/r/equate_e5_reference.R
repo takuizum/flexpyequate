@@ -1,8 +1,8 @@
-# flexpyequate E5 reference values (packages/flexpyequate/docs/DESIGN.md §7, case Q7):
+# flexpyequate E5 reference values (docs/DESIGN.md §7, case Q7):
 # equipercentile equating for non-equivalent groups with an anchor test (frequency estimation
 # and chained), with and without log-linear presmoothing of the joint distributions.
 # Run from the repository root:  Rscript validation/r/equate_e5_reference.R
-# Writes packages/flexpyequate/tests/reference/e5_neat_equipercentile.json. CI does not run R.
+# Writes tests/reference/e5_neat_equipercentile.json. CI does not run R.
 #
 # Two references:
 # - R `equate` (Albano, 2016). Its synthetic distributions mix the populations as counts, so the
@@ -160,7 +160,7 @@ out <- list(
   cases = cases,
   smoothed = smoothed
 )
-path <- "packages/flexpyequate/tests/reference/e5_neat_equipercentile.json"
+path <- "tests/reference/e5_neat_equipercentile.json"
 writeLines(toJSON(out, auto_unbox = TRUE, digits = NA, pretty = TRUE), path)
 cat("wrote", path, "\n")
 inside <- function(p) p > 0 & p < 1

@@ -1,0 +1,79 @@
+name: CI
+
+# Every PR and every push to develop/main runs the whole suite (it needs no JAX and is quick).
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to the same PR cancels the run in progress (pushes to develop/main always finish).
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # The required status checks ("test (3.12)", "test (3.13)") of the develop and main rulesets.
+  test:
+    name: test (${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # hatch-vcs derives the version from tags
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+      - name: Install
+        run: uv sync --locked --dev
+      - name: Ruff (lint)
+        run: uv run ruff check .
+      - name: Ruff (format)
+        run: uv run ruff format --check .
+      - name: Mypy
+        run: uv run mypy
+      - name: JAX, flexpyirt and flexpyctt are not installed
+        run: |
+          uv run python -c "
+          import importlib.util as u
+          present = [m for m in ('jax', 'jaxlib', 'flexpyirt', 'flexpyctt') if u.find_spec(m) is not None]
+          assert not present, present
+          import flexpyequate
+          print(flexpyequate.__version__)
+          "
+      - name: Pytest
+        run: uv run pytest --durations=10
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # hatch-vcs derives the version from tags
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+          enable-cache: true
+      - name: Build sdist and wheel
+        run: |
+          uv build
+          ls dist
+      - name: Check metadata (PyPI rendering of README.md)
+        run: uvx twine check --strict dist/*
+      - name: Smoke test the wheel (isolated env)
+        run: |
+          uv run --isolated --no-project --with dist/flexpyequate-*.whl python -c "
+          import importlib.util as u
+          present = [m for m in ('jax', 'jaxlib', 'flexpyirt', 'flexpyctt') if u.find_spec(m) is not None]
+          assert not present, present
+          import flexpyequate
+          print(flexpyequate.__version__)
+          "

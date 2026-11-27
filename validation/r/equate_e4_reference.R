@@ -1,8 +1,8 @@
-# flexpyequate E4 reference values (packages/flexpyequate/docs/DESIGN.md §7, case Q6): linear
+# flexpyequate E4 reference values (docs/DESIGN.md §7, case Q6): linear
 # equating for non-equivalent groups with an anchor test (Tucker, Levine observed and true score,
 # Braun-Holland, chained linear).
 # Run from the repository root:  Rscript validation/r/equate_e4_reference.R
-# Writes packages/flexpyequate/tests/reference/e4_neat_linear.json. CI does not run R.
+# Writes tests/reference/e4_neat_linear.json. CI does not run R.
 #
 # Two references:
 # - R `equate` (Albano, 2016). Variances and covariances are divided by N - 1 (flexpyequate:
@@ -149,7 +149,7 @@ out <- list(
   ),
   cases = cases
 )
-path <- "packages/flexpyequate/tests/reference/e4_neat_linear.json"
+path <- "tests/reference/e4_neat_linear.json"
 writeLines(toJSON(out, auto_unbox = TRUE, digits = NA, pretty = TRUE), path)
 cat("wrote", path, "\n")
 for (case in cases) {

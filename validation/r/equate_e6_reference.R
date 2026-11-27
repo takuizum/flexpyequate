@@ -1,8 +1,8 @@
-# flexpyequate E6 reference values (packages/flexpyequate/docs/DESIGN.md §7, case Q8): kernel
+# flexpyequate E6 reference values (docs/DESIGN.md §7, case Q8): kernel
 # equating for the single-group (SG), counterbalanced (CB) and anchor-test designs (chained, CE,
 # and post-stratification, PSE), with SEE and SEED.
 # Run from the repository root:  Rscript validation/r/equate_e6_reference.R   (about a minute)
-# Writes packages/flexpyequate/tests/reference/e6_kernel_designs.json. CI does not run R.
+# Writes tests/reference/e6_kernel_designs.json. CI does not run R.
 #
 # References (see equate_e3_reference.R for the reasons):
 # - "kequate_book": kequate with probability matrices, design matrices and sample sizes times
@@ -260,7 +260,7 @@ out <- list(
               x_fitted_probabilities = sp$P, y_fitted_probabilities = sq$P,
               post_stratification = post_stratification, chained = chained)
 )
-path <- "packages/flexpyequate/tests/reference/e6_kernel_designs.json"
+path <- "tests/reference/e6_kernel_designs.json"
 writeLines(toJSON(out, auto_unbox = TRUE, digits = NA, pretty = TRUE), path)
 cat("wrote", path, "\n")
 report <- function(label, k, i) {
