@@ -47,11 +47,11 @@ flexpyequate は関連する 3 つのパッケージの 1 つで、それぞれ�
    - **マージコミット**でマージする（`main` のルールセットはマージコミットだけを許可している）。
 2. マージすると `.github/workflows/release.yml` が動く:
    1. `plan` ジョブ: PR のタイトルと最新の `vX.Y.Z` タグから次のバージョンを計算する。
-   2. `publish` ジョブ: **`release` 環境での承認を待つ**。オーナーが Actions のページで承認すると、`main` に
-      `vX.Y.Z` のタグを付け、wheel と sdist をビルドし（`uv build`）、GitHub Release を作る。そのあと、
-      このリリースに含まれる fix PR が `Closes` した issue を閉じる。
-   3. `pypi` ジョブ: **同じ wheel と sdist を PyPI に公開する**（`pypi` 環境、Trusted Publishing。API トークンは
-      使わない）。
+   2. `publish` ジョブ: **承認を待たずに動く**（`release` 環境。`main` からしかデプロイしない）。`main` に
+      タグ `vX.Y.Z` を打ってビルドし（`uv build`）、GitHub Release を作成する（wheel / sdist 添付、
+      リリースノート自動生成）。このリリースに含まれる fix PR が `Closes` していた issue を閉じる。
+   3. `pypi` ジョブ: **`pypi` 環境の承認待ちになる**。オーナーが Actions 画面で承認すると、同じ wheel / sdist を
+      PyPI に公開する（Trusted Publishing。API トークンは使わない）。
 3. **最初のリリース**（`v*` タグがまだないとき）は、タイトルの指定にかかわらず **v0.1.0** になる。
 4. 手動実行（`workflow_dispatch`）はドライランだけで、次のバージョンの計算とビルドをする。
 
@@ -62,7 +62,8 @@ flexpyequate は関連する 3 つのパッケージの 1 つで、それぞれ�
 
 - **`main` を更新できるのはリポジトリの管理者だけ**（ルールセット `main-release-gate`）。PR と CI の要件
   （ルールセット `main`）は管理者にも適用される。
-- **`publish` ジョブは `release` 環境で動き**、この環境は `main` からしかデプロイしない。
+- **`publish` ジョブは `release` 環境で動き**、この環境は `main` からしかデプロイしない。必須レビュアーは
+  付けていない。リリース PR のマージが、タグを打つ判断である。
 - **PyPI へのアップロードは Trusted Publishing**（OIDC）。PyPI のプロジェクト `flexpyequate` は、
   「リポジトリ `takuizum/flexpyequate`、ワークフロー `release.yml`、環境 `pypi`」という発行者だけを信頼するので、
   リポジトリに API トークンは置かない。`pypi` 環境はオーナーの承認を必要とする。PyPI に一度アップロードした
