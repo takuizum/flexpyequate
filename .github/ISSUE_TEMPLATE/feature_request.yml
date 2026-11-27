@@ -1,0 +1,14 @@
+name: Feature request / 機能の提案
+description: Propose a new equating method, option or API / 新しい等化の方法・オプション・API の提案
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What you want to do / やりたいこと
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: References (papers, the corresponding R function, ...) / 参照（論文・R の対応する関数など）
