@@ -46,4 +46,12 @@
   タグ `vX.Y.Z` と GitHub Release ができ（承認なし）、`pypi` ジョブはオーナーが `pypi` 環境を承認したあとに PyPI に
   公開する（Trusted Publishing）。バージョンは git タグから（hatch-vcs、`pyproject.toml` に書かない）。最初のリリースは v0.1.0。
 - `README*.md` は PyPI にも表示されるのでリンクは絶対 URL。開発関連の情報は書かない。
+- `docs/`（`DESIGN*.md` を除く）はユーザー向けのドキュメントサイト（MkDocs、英日。`docs.yml` が `main` から
+  GitHub Pages に公開）。`index`・`guide`・`reference` の 3 ページ。プレビューは
+  `uv run --group docs mkdocs serve`、CI と同じ検査は `uv run --group docs mkdocs build --strict`。
+  - サイトのページにはマイルストーン、DESIGN の節番号、検証ケースの ID、開発の手順を書かない。
+  - `docs/` 内のリンクは相対リンク（日本語ページからは `*.ja.md` へ）。`DESIGN.md` へはサイトのページから
+    相対リンクを張らない（サイトに含まれない。必要なら GitHub の URL）。
+  - `docs/index.md` と `docs/guide.md` の Python ブロックは `tests/test_docs.py` が実行する。公開 API を
+    変えたら `docs/reference.md` と `docs/guide.md`（と `.ja.md`）も直す。
 - **PR はオーナーがレビューしてマージする。Claude は PR を作るまでで、マージしない。**

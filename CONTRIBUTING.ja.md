@@ -95,5 +95,28 @@ uv run ruff check . && uv run ruff format --check . && uv run mypy && uv run pyt
 ## ドキュメント
 
 どの文書にも英語版（`*.md`）と日本語版（`*.ja.md`）があり、内容は同じである。片方を変えたら両方を直す。
-`README.md` / `README.ja.md` は PyPI のプロジェクトページにも表示されるので、リンクは絶対 URL にし、
-開発に関する情報は書かない。
+
+| 文書 | 読者 | 表示される場所 |
+|---|---|---|
+| `README.md` | ユーザー | GitHub と PyPI のプロジェクトページ |
+| `docs/index.md`、`docs/guide.md`、`docs/reference.md` | ユーザー | ドキュメントサイト <https://takuizum.github.io/flexpyequate/ja/> |
+| `docs/DESIGN.md` | 開発者 | GitHub のみ（`mkdocs.yml` でサイトから除外している） |
+| `CONTRIBUTING.md` | 開発者 | GitHub のみ |
+
+- **サイト**は、`docs/` の Markdown（`DESIGN*.md` を除く）から MkDocs（Material テーマ、
+  `mkdocs-static-i18n`）で作る。`.github/workflows/docs.yml` がすべての PR でビルドし、`main` から
+  GitHub Pages に公開する。サイトはリリース済みの状態を示す。
+- **プレビュー**: `uv run --group docs mkdocs serve`。**CI と同じ検査**:
+  `uv run --group docs mkdocs build --strict`（リンクやアンカーが切れているとビルドが失敗する）。
+- **サイトのページはユーザー向けである。** パッケージで何ができ、どう使うかを書く。マイルストーン、
+  `DESIGN.md` の節番号、検証ケースの ID、開発の手順は書かない。内容はすべてコード、docstring、
+  `README.md`、`DESIGN.md` にもとづいて書く。
+- **リンク。** `docs/` のページどうしは相対リンクにする（`guide.ja.md`、`reference.ja.md#equate`）。
+  日本語のページからは日本語のページにリンクする。サイトのページから `DESIGN.md` へ相対リンクを
+  張らない（サイトに含まれないため）。必要なら GitHub の URL を使う。`README.md` / `README.ja.md` は
+  PyPI のプロジェクトページにも表示されるので、リンクは絶対 URL にし（日本語版 README はサイトの `/ja/`
+  以下にリンクする）、開発に関する情報は書かない。
+- **コード例。** `docs/index.md` と `docs/guide.md` の Python ブロックはすべて、固定したシードの
+  シミュレーションデータで、ページの上から順にそのまま実行できる。`tests/test_docs.py` が両方の言語で
+  実行し、2 つの言語のコードが同じであること（コメントは違ってよい）、公開名がすべて
+  `docs/reference.md` に載っていること、どの文書にも他方の言語の版があることを確かめる。

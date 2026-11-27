@@ -12,6 +12,10 @@ flexpyequate finds the function that puts scores of form X on the scale of form 
   (IRT true-score and observed-score equating, scale linking) is in
   [flexpyirt](https://github.com/takuizum/flexpyirt).
 
+**Documentation: <https://takuizum.github.io/flexpyequate/>**
+([user guide](https://takuizum.github.io/flexpyequate/guide/),
+[API reference](https://takuizum.github.io/flexpyequate/reference/))
+
 > Under development (0.x). The public API may change before 1.0.0.
 
 ## Features

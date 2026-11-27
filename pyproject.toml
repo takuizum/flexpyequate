@@ -33,6 +33,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/takuizum/flexpyequate"
+Documentation = "https://takuizum.github.io/flexpyequate/"
 Repository = "https://github.com/takuizum/flexpyequate"
 Issues = "https://github.com/takuizum/flexpyequate/issues"
 Releases = "https://github.com/takuizum/flexpyequate/releases"
@@ -44,6 +45,10 @@ dev = [
     "ruff>=0.6",
     "mypy>=1.11",
     "pandas-stubs>=2.1",
+]
+docs = [
+    "mkdocs-material>=9.5",
+    "mkdocs-static-i18n>=1.2",
 ]
 
 [build-system]
@@ -61,9 +66,17 @@ fallback_version = "0.0.0"
 packages = ["src/flexpyequate"]
 
 # The sdist carries the sources, the tests (with the R reference values), the R scripts and the
-# design document; repository tooling stays out.
+# documentation; repository tooling (and the built site) stays out.
 [tool.hatch.build.targets.sdist]
-exclude = ["/.github", "/.python-version", "/CLAUDE.md", "/uv.lock", "/scripts"]
+exclude = [
+    "/.github",
+    "/.python-version",
+    "/CLAUDE.md",
+    "/uv.lock",
+    "/scripts",
+    "/mkdocs.yml",
+    "/site",
+]
 
 [tool.ruff]
 line-length = 100

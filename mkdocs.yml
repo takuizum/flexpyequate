@@ -1,0 +1,94 @@
+site_name: flexpyequate
+site_description: Equating of test score distributions - mean, linear, equipercentile and kernel equating, checked against R.
+site_url: https://takuizum.github.io/flexpyequate/
+repo_url: https://github.com/takuizum/flexpyequate
+repo_name: takuizum/flexpyequate
+edit_uri: edit/develop/docs/
+copyright: Copyright &copy; 2026 takuizum
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+# The site is built from the same Markdown files that GitHub renders (X.md / X.ja.md).
+# scripts/mkdocs_hooks.py drops the in-page language links and points links outside docs/ to
+# GitHub.
+hooks:
+  - scripts/mkdocs_hooks.py
+
+# docs/DESIGN*.md is the developer's design document. It is read on GitHub and is not part of the
+# user-facing site.
+exclude_docs: |
+  /DESIGN.md
+  /DESIGN.ja.md
+
+nav:
+  - Home: index.md
+  - User guide: guide.md
+  - API reference: reference.md
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      # Every page has a Japanese version (tests/test_docs.py), so no page falls back to English.
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: ja
+          name: 日本語
+          build: true
+          site_description: テスト得点分布の等化（平均・線形・等パーセンタイル・カーネル等化）。R と数値照合済み。
+          nav_translations:
+            Home: ホーム
+            User guide: ユーザーガイド
+            API reference: API リファレンス
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      # GitHub-compatible anchors (keeps Japanese headings), so links work in both places.
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+validation:
+  omitted_files: warn
+  absolute_links: info
+  unrecognized_links: warn
+  anchors: warn
