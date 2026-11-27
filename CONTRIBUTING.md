@@ -100,5 +100,31 @@ Names follow PEP 8 and read as Python, not as R. `ruff` checks the `N` rules.
 ## Documentation
 
 Every document exists in English (`*.md`) and Japanese (`*.ja.md`) with the same content. Update
-both when you change one. `README.md` / `README.ja.md` are also shown on the PyPI project page, so
-their links are absolute and they hold no development information.
+both when you change one.
+
+| Document | Readers | Where it is shown |
+|---|---|---|
+| `README.md` | Users | GitHub and the PyPI project page |
+| `docs/index.md`, `docs/guide.md`, `docs/reference.md` | Users | The documentation site, <https://takuizum.github.io/flexpyequate/> (Japanese under `/ja/`) |
+| `docs/DESIGN.md` | Developers | GitHub only (`mkdocs.yml` excludes it from the site) |
+| `CONTRIBUTING.md` | Developers | GitHub only |
+
+- **The site** is built with MkDocs (Material theme, `mkdocs-static-i18n`) from the Markdown files
+  in `docs/`, except `DESIGN*.md`. `.github/workflows/docs.yml` builds it on every PR and deploys
+  it to GitHub Pages from `main`, so the site shows the released state.
+- **Preview**: `uv run --group docs mkdocs serve`. **The CI check**:
+  `uv run --group docs mkdocs build --strict` (broken links and anchors fail the build).
+- **Site pages are for users.** They describe what the package does and how to use it: no
+  milestones, no section numbers of `DESIGN.md`, no validation case IDs and no development steps.
+  Take every statement from the code, the docstrings, `README.md` or `DESIGN.md`.
+- **Links.** Between pages of `docs/`, use relative links (`guide.md`, `reference.md#equate`); a
+  Japanese page links to the Japanese page (`guide.ja.md`). Site pages do not link to
+  `DESIGN.md` with a relative link (it is not on the site); use its GitHub URL if a link is
+  needed. `README.md` / `README.ja.md` are also shown on the PyPI project page, so their links are
+  absolute (the Japanese README links to the site under `/ja/`) and they hold no development
+  information.
+- **Code examples.** Every Python block of `docs/index.md` and `docs/guide.md` runs as written,
+  top to bottom within the page, on simulated data with fixed seeds. `tests/test_docs.py` runs
+  them in both languages and checks that the two languages have the same code (comments may
+  differ), that every public name has an entry in `docs/reference.md`, and that every document
+  has its counterpart in the other language.

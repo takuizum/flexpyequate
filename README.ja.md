@@ -11,6 +11,10 @@
 - **範囲**: 得点分布にもとづく観測得点等化。項目パラメータを使う等化（IRT 真値等化・観測得点等化、
   尺度のリンキング）は [flexpyirt](https://github.com/takuizum/flexpyirt) にあります。
 
+**ドキュメント: <https://takuizum.github.io/flexpyequate/ja/>**
+（[ユーザーガイド](https://takuizum.github.io/flexpyequate/ja/guide/)、
+[API リファレンス](https://takuizum.github.io/flexpyequate/ja/reference/)）
+
 > 開発中（0.x）。1.0.0 までは公開 API が変わることがあります。
 
 ## 機能
