@@ -1,7 +1,7 @@
-# flexpyequate E3 reference values (packages/flexpyequate/docs/DESIGN.md §7, cases Q4 and Q5):
+# flexpyequate E3 reference values (docs/DESIGN.md §7, cases Q4 and Q5):
 # kernel equating for the equivalent-groups design with a Gaussian kernel.
 # Run from the repository root:  Rscript validation/r/equate_e3_reference.R
-# Writes packages/flexpyequate/tests/reference/e3_kernel.json. CI does not run R.
+# Writes tests/reference/e3_kernel.json. CI does not run R.
 #
 # References:
 # - kequate (Andersson, Branberg & Wiberg, 2013). It multiplies the variance in the continuization
@@ -213,7 +213,7 @@ out <- list(
   ),
   cases = cases
 )
-path <- "packages/flexpyequate/tests/reference/e3_kernel.json"
+path <- "tests/reference/e3_kernel.json"
 writeLines(toJSON(out, auto_unbox = TRUE, digits = NA, pretty = TRUE), path)
 cat("wrote", path, "\n")
 for (case in cases) {

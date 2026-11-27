@@ -1,6 +1,6 @@
 # flexpyequate
 
-English | [日本語](https://github.com/takuizum/flexpyirt/blob/main/packages/flexpyequate/README.ja.md)
+English | [日本語](https://github.com/takuizum/flexpyequate/blob/main/README.ja.md)
 
 Equating of test score distributions in Python. Given the score distributions of two test forms,
 flexpyequate finds the function that puts scores of form X on the scale of form Y.

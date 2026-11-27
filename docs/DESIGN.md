@@ -686,20 +686,19 @@ ke.kernel, ke.bandwidth_method  # "cross_validation"
 ## 6. Layout
 
 ```
-packages/flexpyequate/
-  pyproject.toml        hatchling + hatch-vcs (version from the repository tag, root = "../..")
-  README.md, README.ja.md
-  docs/DESIGN.md, DESIGN.ja.md
-  src/flexpyequate/
-    distributions.py    ScoreDistribution, BivariateScoreDistribution
-    equating.py         equate(), EquatingResult
-    _neat.py            formulas for non-equivalent groups with an anchor test
-    _standard_errors.py delta-method standard errors of the traditional methods
-    presmoothing.py     presmooth(), LoglinearResult
-    kernel.py           kernel_equate(), KernelEquatingResult
-    errors.py
-  tests/                unit tests, R comparison tests, reference/*.json
-validation/r/equate_*.R reference generators (repository root; not run in CI)
+pyproject.toml          hatchling + hatch-vcs (version from the repository tag)
+README.md, README.ja.md
+docs/DESIGN.md, DESIGN.ja.md
+src/flexpyequate/
+  distributions.py    ScoreDistribution, BivariateScoreDistribution
+  equating.py         equate(), EquatingResult
+  _neat.py            formulas for non-equivalent groups with an anchor test
+  _standard_errors.py delta-method standard errors of the traditional methods
+  presmoothing.py     presmooth(), LoglinearResult
+  kernel.py           kernel_equate(), KernelEquatingResult
+  errors.py
+tests/                unit tests, R comparison tests, reference/*.json
+validation/r/equate_*.R reference generators (not run in CI)
 ```
 
 ## 7. Validation plan

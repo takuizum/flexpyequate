@@ -622,20 +622,19 @@ ke.kernel, ke.bandwidth_method  # "cross_validation" も
 ## 6. 構成
 
 ```
-packages/flexpyequate/
-  pyproject.toml        hatchling + hatch-vcs（バージョンはリポジトリのタグから。root = "../.."）
-  README.md, README.ja.md
-  docs/DESIGN.md, DESIGN.ja.md
-  src/flexpyequate/
-    distributions.py    ScoreDistribution, BivariateScoreDistribution
-    equating.py         equate(), EquatingResult
-    _neat.py            アンカーテストつき非等価群の式
-    _standard_errors.py 従来手法のデルタ法による標準誤差
-    presmoothing.py     presmooth(), LoglinearResult
-    kernel.py           kernel_equate(), KernelEquatingResult
-    errors.py
-  tests/                単体テスト、R 照合テスト、reference/*.json
-validation/r/equate_*.R 参照値の生成スクリプト（リポジトリルート。CI では実行しない）
+pyproject.toml          hatchling + hatch-vcs（バージョンはリポジトリのタグから）
+README.md, README.ja.md
+docs/DESIGN.md, DESIGN.ja.md
+src/flexpyequate/
+  distributions.py    ScoreDistribution, BivariateScoreDistribution
+  equating.py         equate(), EquatingResult
+  _neat.py            アンカーテストつき非等価群の式
+  _standard_errors.py 従来手法のデルタ法による標準誤差
+  presmoothing.py     presmooth(), LoglinearResult
+  kernel.py           kernel_equate(), KernelEquatingResult
+  errors.py
+tests/                単体テスト、R 照合テスト、reference/*.json
+validation/r/equate_*.R 参照値の生成スクリプト（CI では実行しない）
 ```
 
 ## 7. 検証計画

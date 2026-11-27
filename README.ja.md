@@ -1,6 +1,6 @@
 # flexpyequate
 
-[English](https://github.com/takuizum/flexpyirt/blob/main/packages/flexpyequate/README.md) | 日本語
+[English](https://github.com/takuizum/flexpyequate/blob/main/README.md) | 日本語
 
 テスト得点分布の等化を行う Python ライブラリです。2 つのテスト版の得点分布から、X 版の得点を Y 版の
 尺度に対応づける関数を求めます。
