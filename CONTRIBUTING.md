@@ -49,12 +49,13 @@ releasing means tagging. Untagged development commits get versions like `0.1.1.d
    - Merge it with a **merge commit** (the `main` ruleset allows merge commits only).
 2. The merge runs `.github/workflows/release.yml`:
    1. `plan` job: computes the next version from the PR title and the latest `vX.Y.Z` tag.
-   2. `publish` job: **waits for approval in the `release` environment**. Once the owner approves
-      it on the Actions page, it tags `main` with `vX.Y.Z`, builds the wheel and the sdist
-      (`uv build`) and creates a GitHub Release. It then closes the issues that fix PRs in this
-      release `Closes`d.
-   3. `pypi` job: **publishes the same wheel and sdist to PyPI** (`pypi` environment, Trusted
-      Publishing; no API token).
+   2. `publish` job: runs **without waiting for approval** (`release` environment, which deploys
+      from `main` only). It tags `main` with `vX.Y.Z`, builds (`uv build`) and creates a GitHub
+      Release (wheel and sdist attached, release notes generated). It then closes the issues
+      that fix PRs in this release `Closes`d.
+   3. `pypi` job: **waits for approval in the `pypi` environment**. Once the owner approves it on
+      the Actions page, it publishes the same wheel and sdist to PyPI (Trusted Publishing; no
+      API token).
 3. **The first release** (no `v*` tag yet) is **v0.1.0**, whatever bump the title asks for.
 4. Manual runs (`workflow_dispatch`) are dry runs only: they compute the next version and build.
 
@@ -65,7 +66,8 @@ Versions follow [Semantic Versioning](https://semver.org/). Before 1.0.0, a mino
 
 - **Only repository admins can update `main`** (ruleset `main-release-gate`). The PR and CI
   requirements (ruleset `main`) apply to admins too.
-- **The `publish` job runs in the `release` environment**, which deploys from `main` only.
+- **The `publish` job runs in the `release` environment**, which deploys from `main` only and
+  has no required reviewer: merging the release PR is the decision to tag.
 - **PyPI uploads use Trusted Publishing** (OIDC). The PyPI project `flexpyequate` trusts only the
   publisher "repository `takuizum/flexpyequate`, workflow `release.yml`, environment `pypi`", so no API
   token lives in the repository. The `pypi` environment needs the owner's approval. A version

@@ -42,8 +42,8 @@
 ## 開発フロー（CONTRIBUTING.md）
 
 - `feature/<slug>` と `fix/<issue番号>-<slug>` を `develop` から切り、`develop` へ PR。fix は issue 必須（`Closes #N`）。
-- リリースは `develop` → `main` の PR。タイトル `release(major|minor|patch): ...` で上げ方を決め、マージ後にオーナーが
-  `release` 環境を承認するとタグ `vX.Y.Z` と GitHub Release ができ、`pypi` ジョブが PyPI に公開する
-  （Trusted Publishing）。バージョンは git タグから（hatch-vcs、`pyproject.toml` に書かない）。最初のリリースは v0.1.0。
+- リリースは `develop` → `main` の PR。タイトル `release(major|minor|patch): ...` で上げ方を決め、マージするとすぐに
+  タグ `vX.Y.Z` と GitHub Release ができ（承認なし）、`pypi` ジョブはオーナーが `pypi` 環境を承認したあとに PyPI に
+  公開する（Trusted Publishing）。バージョンは git タグから（hatch-vcs、`pyproject.toml` に書かない）。最初のリリースは v0.1.0。
 - `README*.md` は PyPI にも表示されるのでリンクは絶対 URL。開発関連の情報は書かない。
 - **PR はオーナーがレビューしてマージする。Claude は PR を作るまでで、マージしない。**
